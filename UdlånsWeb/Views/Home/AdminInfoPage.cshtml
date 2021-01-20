@@ -1,0 +1,72 @@
+﻿@model UdlånsWeb.Models.BookingViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container">
+    <div style="width:250px">
+        <form asp-action="InfoPage">
+
+            <div>
+                <label>
+                    Tryk her for at sætte en anden varighed af faget
+                    <input type="checkbox" id="cBox" onclick="myfunction();" />
+                </label>
+            </div>
+
+            <label asp-for="@Model.CourseModel.Name" class="control-label"></label>
+            <br />
+            <select asp-for="@Model.CourseModel.Name">
+                @for (int i = 0; i < Model.CoursesForSelection.Count; i++)
+                {
+                    <option>@Model.CoursesForSelection[i].Name</option>
+                }
+
+            </select>
+            <span asp-validation-for="@Model.CourseModel.Name"></span>
+            <br />
+
+            <label asp-for="@Model.RentDate" class="control-label"></label>
+            <br />
+
+            <input asp-for="@Model.RentDate" class="form-control" />
+            <span asp-validation-for="@Model.RentDate" class="text-danger"></span>
+            <br />
+
+            <div id="testing" style="display:none">
+                <label asp-for="@Model.CustomTurninDate" class="control-label"></label>
+                <br />
+                <input asp-for="@Model.CustomTurninDate" class="form-control" />
+                <span asp-validation-for="@Model.CustomTurninDate" class="text-danger"></span>
+                <br />
+            </div>
+
+
+            <label asp-for="@Model.NumberOfGroups" class="control-label"></label>
+            <br />
+
+            <input asp-for="@Model.NumberOfGroups" class="form-control" />
+            <span asp-validation-for="@Model.NumberOfGroups" class="text-danger"></span>
+            <br />
+
+            <input style="margin-top:20px;" type="submit" value="Book" class="btn btn-primary" asp-action="AdminInfoPage" />
+        </form>
+    </div>
+</div>
+
+<script>
+    function myfunction() {
+        if (document.getElementById('cBox').checked) {
+            $("#testing").show();
+        }
+        else {
+            $("#testing").hide();
+        }
+    }
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
